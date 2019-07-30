@@ -267,8 +267,12 @@ class AdminController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function userDelete(Request $request)
     {
-        //
+        $client = User::find($request->id);
+        $client->delete($client->id);
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', $client->name. ' deleted successfully!!');
+        return redirect()->back(); 
     }
 }
